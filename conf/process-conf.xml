@@ -1,0 +1,21 @@
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    <bean id="csvAccountExtractProcess"
+          class="com.salesforce.dataloader.process.ProcessRunner"
+          singleton="false">
+        <description>csvAccountExtract gets account info from salesforce and saves info into a CSV file.</description>
+        <property name="name" value="csvAccountExtract"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="process.operation" value="extract"/>
+                <entry key="process.mappingFile" value="conf/accountExtractMap.sdl"/>
+                <entry key="sfdc.entity" value="Account"/>
+                <entry key="sfdc.extractionRequestSize" value="500"/>
+                <entry key="sfdc.extractionSOQL" value="Select Id, Name, Type, RecordTypeId, ParentId FROM Account"/>
+                <entry key="dataAccess.type" value="csvWrite"/>
+                <entry key="dataAccess.name" value="data/accountExtract.csv"/>
+            </map>
+        </property>
+    </bean>
+</beans>
+
